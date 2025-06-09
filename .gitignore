@@ -1,0 +1,32 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 前端
+/dist
+/build
+/.next
+/.nuxt
+
+# 数据库
+*.sqlite
+*.db
+*.log
+
+# 环境变量
+.env
+.env.*
+/config/*.local.json
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 日志
+logs/
+*.log
+
+# 其他
+.idea/
+.vscode/ 
