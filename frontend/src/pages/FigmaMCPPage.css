@@ -2,7 +2,15 @@
   padding: 24px;
 }
 
-.figma-mcp-card {
+.figma-mcp-header {
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.figma-mcp-content-wrapper {
   margin-bottom: 24px;
 }
 
@@ -26,10 +34,41 @@
   flex: 2;
 }
 
-.design-spec-container {
-  width: 100%;
+.config-list-card,
+.config-form-card {
+  height: 100%;
 }
 
-.design-spec-actions {
+.design-spec-toolbar {
   margin-bottom: 16px;
+}
+
+.connection-card,
+.current-config-card {
+  height: 100%;
+}
+
+.connection-status {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.current-config-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.no-config-selected,
+.no-config-warning {
+  text-align: center;
+  padding: 24px;
+  background-color: #fffbe6;
+  border: 1px solid #ffe58f;
+  border-radius: 4px;
+}
+
+.text-right {
+  text-align: right;
 } 

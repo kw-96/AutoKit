@@ -4,12 +4,12 @@
   "description": "AutoKit 后端服务，提供API、MCP配置、设计规范解析等功能。",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "ts-node src/index.ts",
-    "dev:memory": "cross-env USE_MEMORY_DB=true ts-node src/index.ts",
+    "dev": "node --no-deprecation ./node_modules/.bin/ts-node src/index.ts",
+    "dev:memory": "node --no-deprecation ./node_modules/.bin/cross-env USE_MEMORY_DB=true ./node_modules/.bin/ts-node src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
-    "start-figma-socket": "bun run src/figmaMCP/socket.ts",
-    "figma-mcp": "bun run src/figmaMCP/talk_to_figma_mcp/server.ts"
+    "start": "node --no-deprecation dist/index.js",
+    "start-figma-socket": "node --no-deprecation ./node_modules/.bin/bun run src/figmaMCP/socket.ts",
+    "figma-mcp": "node --no-deprecation ./node_modules/.bin/bun run src/figmaMCP/talk_to_figma_mcp/server.ts"
   },
   "dependencies": {
     "@types/mongoose": "^5.11.96",

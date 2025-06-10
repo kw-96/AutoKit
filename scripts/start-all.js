@@ -154,11 +154,11 @@ async function startServices() {
   
   // 启动后端服务
   console.log(`${colors.yellow}启动后端服务 (端口: ${PORTS.backend})...${colors.reset}`);
-  const backendProcess = spawn('npm', ['run', 'dev:memory'], {
+  const backendProcess = spawn('npx', ['cross-env', 'USE_MEMORY_DB=true', 'ts-node', 'src/index.ts'], {
     cwd: backendDir,
     shell: true,
     stdio: 'pipe',
-    env: { ...process.env, PORT: PORTS.backend, FIGMA_SOCKET_PORT: PORTS.websocket }
+    env: { ...process.env, PORT: PORTS.backend, FIGMA_SOCKET_PORT: PORTS.websocket, NODE_OPTIONS: '--no-deprecation' }
   });
 
   backendProcess.stdout.on('data', (data) => {
@@ -175,10 +175,11 @@ async function startServices() {
 
   // 启动前端服务
   console.log(`${colors.yellow}启动前端服务 (端口: ${PORTS.frontend})...${colors.reset}`);
-  const frontendProcess = spawn('npm', ['run', 'dev', '--', '--port', PORTS.frontend], {
+  const frontendProcess = spawn('npx', ['vite', '--port', PORTS.frontend], {
     cwd: frontendDir,
     shell: true,
-    stdio: 'pipe'
+    stdio: 'pipe',
+    env: { ...process.env, NODE_OPTIONS: '--no-deprecation' }
   });
 
   frontendProcess.stdout.on('data', (data) => {

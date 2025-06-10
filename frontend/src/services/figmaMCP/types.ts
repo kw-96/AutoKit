@@ -10,6 +10,7 @@ export interface MCPConfig {
   apiKey: string;
   fileId?: string;
   teamId?: string;
+  type?: string;    // 配置类型，如'FigmaMCP'
   enabled: boolean;
   settings?: MCPSettings;
   createdAt: string | Date;

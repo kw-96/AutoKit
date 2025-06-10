@@ -1,0 +1,410 @@
+.design-system-guide-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 24px;
+}
+
+/* Tabs 样式定制 */
+.design-system-guide-page .ant-tabs {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.design-system-guide-page .ant-tabs-nav {
+  background: transparent;
+  border-bottom: 2px solid #e9ecef;
+  margin-bottom: 24px;
+}
+
+.design-system-guide-page .ant-tabs-tab {
+  font-weight: 500;
+  padding: 12px 8px;
+  border-radius: 8px 8px 0 0;
+  margin: 0 2px;
+  transition: all 0.3s ease;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-bottom: none;
+  color: #6c757d;
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  justify-content: center;
+}
+
+.design-system-guide-page .ant-tabs-nav-list {
+  display: flex;
+  width: 100%;
+}
+
+.design-system-guide-page .ant-tabs-tab .ant-tabs-tab-btn {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.design-system-guide-page .ant-tabs-tab .ant-tabs-tab-btn {
+  color: #6c757d;
+}
+
+.design-system-guide-page .ant-tabs-tab:hover {
+  background: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.design-system-guide-page .ant-tabs-tab:hover .ant-tabs-tab-btn {
+  color: #495057;
+}
+
+/* 选中的标签使用蓝色渐变背景 */
+.design-system-guide-page .ant-tabs-tab-active {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
+  border-color: #4f46e5 !important;
+  color: white !important;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.design-system-guide-page .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+}
+
+.design-system-guide-page .ant-tabs-tab-active span {
+  color: white !important;
+}
+
+.design-system-guide-page .ant-tabs-tab-active .anticon {
+  color: white !important;
+}
+
+/* 内容区域简化 */
+.design-system-guide-page .ant-tabs-content-holder {
+  background: white;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  min-height: calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.design-system-guide-page .ant-tabs-tabpane {
+  height: 100%;
+}
+
+/* 标签页内页面头部 */
+.design-guide-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 32px 24px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.design-guide-header h1 {
+  color: white !important;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px !important;
+}
+
+.header-subtitle {
+  font-size: 1rem;
+  opacity: 0.9;
+  margin-bottom: 0 !important;
+  color: white !important;
+}
+
+/* 确保内容区域有足够的空间 */
+.design-system-guide-page .ant-tabs-content {
+  height: 100%;
+}
+
+/* 内容区域样式 */
+.subsection {
+  margin: 24px 0;
+}
+
+.subsection h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.subsection h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 20px 0 12px 0;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.subsection h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 16px 0 8px 0;
+  color: #475569;
+}
+
+/* Tab 内容区域样式调整 */
+.design-system-guide-page .ant-tabs-tabpane > div {
+  height: 100%;
+}
+
+/* 确保Alert组件正确显示 */
+.design-system-guide-page .ant-alert {
+  margin: 16px 0;
+}
+
+/* 确保表格正确显示 */
+.design-system-guide-page .ant-table-wrapper {
+  margin: 16px 0;
+}
+
+/* 卡片样式 */
+.principle-card,
+.button-spec-card,
+.feedback-card,
+.layout-card,
+.utility-card,
+.practice-card {
+  height: 100%;
+  transition: all 0.2s;
+}
+
+.principle-card:hover,
+.button-spec-card:hover,
+.feedback-card:hover,
+.layout-card:hover,
+.utility-card:hover,
+.practice-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.principle-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.principle-icon {
+  font-size: 20px;
+  color: #3b82f6;
+  margin-top: 2px;
+}
+
+/* 代码块样式 */
+.code-card {
+  background: #1e293b;
+  border: none;
+  margin: 16px 0;
+  border-radius: 8px;
+}
+
+.code-card .ant-card-body {
+  padding: 20px;
+  background: #1e293b;
+}
+
+.directory-tree,
+.code-card pre {
+  color: #e2e8f0;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre;
+  overflow-x: auto;
+  background: transparent;
+}
+
+/* 卡片网格布局优化 */
+.design-system-guide-page .ant-row {
+  margin-bottom: 16px;
+}
+
+.design-system-guide-page .ant-col {
+  margin-bottom: 16px;
+}
+
+/* 表格样式 */
+.color-table,
+.typography-table {
+  margin: 16px 0;
+}
+
+.color-preview {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  display: inline-block;
+}
+
+/* 间距卡片 */
+.spacing-card {
+  height: 100%;
+}
+
+.spacing-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.spacing-preview {
+  background: #3b82f6;
+  border-radius: 2px;
+  flex-shrink: 0;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.spacing-info {
+  flex: 1;
+}
+
+.spacing-name {
+  font-size: 12px;
+}
+
+.spacing-usage {
+  font-size: 11px;
+}
+
+/* 阴影卡片 */
+.shadow-card {
+  height: 100%;
+  text-align: center;
+}
+
+.shadow-preview {
+  width: 80px;
+  height: 40px;
+  background: white;
+  border-radius: 8px;
+  margin: 0 auto 12px;
+}
+
+.shadow-info {
+  text-align: left;
+}
+
+.shadow-value {
+  font-size: 11px;
+  word-break: break-all;
+}
+
+/* 命名约定卡片 */
+.naming-card.error {
+  border-left: 4px solid #ef4444;
+}
+
+.naming-card.error .ant-card-head-title {
+  color: #ef4444;
+}
+
+/* 最佳实践列表 */
+.practice-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.practice-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+/* Alert 样式 */
+.section-alert {
+  margin: 16px 0;
+}
+
+.section-alert ul {
+  margin: 8px 0 0 0;
+  padding-left: 20px;
+}
+
+.section-alert li {
+  margin-bottom: 4px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .design-system-guide-page {
+    padding: 16px;
+  }
+  
+  .design-system-guide-page .ant-tabs-content-holder {
+    padding: 20px;
+  }
+  
+  .design-guide-header {
+    padding: 32px 20px;
+  }
+  
+  .design-guide-header h1 {
+    font-size: 2rem;
+  }
+  
+  .header-subtitle {
+    font-size: 1rem;
+  }
+  
+  .subsection h2 {
+    font-size: 1.75rem;
+  }
+  
+  .subsection h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .design-system-guide-page .ant-tabs-tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .design-guide-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .code-card pre,
+  .directory-tree {
+    font-size: 0.75rem;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .principle-card,
+  .button-spec-card,
+  .feedback-card,
+  .layout-card,
+  .utility-card,
+  .practice-card {
+    break-inside: avoid;
+  }
+  
+  .design-system-guide-page .ant-tabs-content-holder {
+    max-height: none;
+    overflow: visible;
+  }
+}

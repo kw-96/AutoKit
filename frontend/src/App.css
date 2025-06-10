@@ -1,17 +1,21 @@
 .header {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background: linear-gradient(90deg, #1890ff 0%, #722ed1 100%);
   padding: 0 24px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1000;
 }
 
 .logo {
   height: 32px;
   margin: 16px 0;
-  color: #1890ff;
+  color: #fff;
   font-size: 20px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .site-layout-background {
@@ -19,6 +23,86 @@
 }
 
 .ant-layout-sider {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.09);
   z-index: 10;
-} 
+  background: #fff;
+}
+
+.ant-layout-sider .ant-menu {
+  background: transparent;
+}
+
+.ant-layout-sider .ant-menu-item {
+  margin: 4px 8px;
+  border-radius: 6px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.ant-layout-sider .ant-menu-item-selected {
+  background: linear-gradient(90deg, #1890ff 0%, #722ed1 100%);
+  color: #fff;
+}
+
+.ant-layout-sider .ant-menu-item-selected a {
+  color: #fff;
+}
+
+.ant-layout-sider .ant-menu-item:hover {
+  background: rgba(24, 144, 255, 0.1);
+  color: #1890ff;
+}
+
+/* 面包屑样式优化 */
+.ant-breadcrumb {
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  margin: 16px 0;
+  padding-left: 16px;
+}
+
+/* 内容区域样式 */
+.site-layout-background {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+  
+  .logo {
+    font-size: 18px;
+  }
+  
+  .ant-layout-sider {
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 64px;
+    z-index: 999;
+  }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

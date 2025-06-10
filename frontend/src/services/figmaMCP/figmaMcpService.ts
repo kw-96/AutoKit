@@ -6,6 +6,7 @@
 import axios from 'axios';
 import { MCPConfig, MCPResponse } from './types';
 
+// 修改API基础URL，与后端路由保持一致
 const API_BASE_URL = '/api/figma-mcp';
 
 export class FigmaMCPService {
@@ -14,9 +15,13 @@ export class FigmaMCPService {
    */
   static async getConfigs(): Promise<MCPResponse<MCPConfig[]>> {
     try {
+      // 调试信息
+      console.log(`正在请求配置列表: ${API_BASE_URL}/configs`);
       const response = await axios.get(`${API_BASE_URL}/configs`);
+      console.log('获取配置响应:', response.data);
       return response.data;
     } catch (error) {
+      console.error('获取配置失败:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : '获取配置失败'

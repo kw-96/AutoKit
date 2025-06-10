@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
-import { Card, Form, Input, Button, Select, Divider, Collapse, Alert, Spin, Space } from 'antd';
+import Card from 'antd/lib/card';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
+import Select from 'antd/lib/select';
+import Divider from 'antd/lib/divider';
+import Collapse from 'antd/lib/collapse';
+import Alert from 'antd/lib/alert';
+import Spin from 'antd/lib/spin';
+import Space from 'antd/lib/space';
 import { CodeOutlined, LinkOutlined, FileOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { MCPConfig } from '../../services/figmaMCP/types';
 import './FigmaExecutePanel.css';
 
 const { Option } = Select;
@@ -8,23 +18,27 @@ const { TextArea } = Input;
 const { Panel } = Collapse;
 
 interface FigmaExecutePanelProps {
-  onExecute: (action: string, payload: any) => Promise<any>;
+  config: MCPConfig | null;
+  onExecuteAction: (action: string, payload: any) => Promise<any>;
   onJoinChannel: (channelId: string) => Promise<any>;
+  onGenerateDesignSpec: () => Promise<void>;
   loading: boolean;
-  disabled: boolean;
 }
 
 const FigmaExecutePanel: React.FC<FigmaExecutePanelProps> = ({ 
-  onExecute, 
+  config,
+  onExecuteAction, 
   onJoinChannel,
-  loading,
-  disabled
+  onGenerateDesignSpec,
+  loading
 }) => {
   const [action, setAction] = useState<string>('');
   const [payload, setPayload] = useState<string>('{}');
   const [channelId, setChannelId] = useState<string>('');
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  const disabled = !config;
 
   // 处理执行操作
   const handleExecute = async () => {
@@ -40,7 +54,7 @@ const FigmaExecutePanel: React.FC<FigmaExecutePanelProps> = ({
         return;
       }
       
-      const result = await onExecute(action, parsedPayload);
+      const result = await onExecuteAction(action, parsedPayload);
       setResult(result);
     } catch (error) {
       setError(error instanceof Error ? error.message : '执行操作失败');
@@ -107,7 +121,7 @@ const FigmaExecutePanel: React.FC<FigmaExecutePanelProps> = ({
             <Input
               placeholder="输入通道ID"
               value={channelId}
-              onChange={(e) => setChannelId(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setChannelId(e.target.value)}
               disabled={loading || disabled}
             />
           </Form.Item>
@@ -131,7 +145,7 @@ const FigmaExecutePanel: React.FC<FigmaExecutePanelProps> = ({
             <Input
               placeholder="输入操作名称"
               value={action}
-              onChange={(e) => setAction(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAction(e.target.value)}
               disabled={loading || disabled}
             />
           </Form.Item>
@@ -139,7 +153,7 @@ const FigmaExecutePanel: React.FC<FigmaExecutePanelProps> = ({
             <TextArea
               placeholder="输入操作参数 (JSON格式)"
               value={payload}
-              onChange={(e) => setPayload(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setPayload(e.target.value)}
               rows={6}
               disabled={loading || disabled}
             />

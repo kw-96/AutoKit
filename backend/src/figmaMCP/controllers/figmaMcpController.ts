@@ -8,9 +8,58 @@ import { v4 as uuidv4 } from 'uuid';
 import FigmaMCPService from '../services/figmaMcpService';
 import { FigmaMCPConfig, FigmaMCPRequestParams } from '../types';
 import { createFigmaMCPService } from '../index';
+import fs from 'fs';
+import path from 'path';
 
-// 存储所有FigmaMCP配置
-let figmaMcpConfigs: FigmaMCPConfig[] = [];
+// 配置文件路径
+const CONFIG_FILE_PATH = path.resolve(__dirname, '../../../config/mcp-config.json');
+
+// 从配置文件加载FigmaMCP配置
+const loadFigmaMcpConfigs = (): FigmaMCPConfig[] => {
+  try {
+    console.log(`正在从文件加载配置: ${CONFIG_FILE_PATH}`);
+    if (fs.existsSync(CONFIG_FILE_PATH)) {
+      const fileContent = fs.readFileSync(CONFIG_FILE_PATH, 'utf-8');
+      const configs = JSON.parse(fileContent) as any[];
+      console.log(`成功加载配置: ${configs.length}个配置项`);
+      return configs.filter((config: any) => config.type === 'FigmaMCP').map((config: any) => ({
+        ...config,
+        createdAt: new Date(config.createdAt || Date.now()),
+        updatedAt: new Date(config.updatedAt || Date.now())
+      }));
+    }
+  } catch (error) {
+    console.error('加载配置文件失败:', error);
+  }
+  return [];
+};
+
+// 保存FigmaMCP配置到文件
+const saveFigmaMcpConfigs = (configs: FigmaMCPConfig[]): void => {
+  try {
+    // 先从文件读取所有配置
+    let allConfigs: any[] = [];
+    if (fs.existsSync(CONFIG_FILE_PATH)) {
+      const fileContent = fs.readFileSync(CONFIG_FILE_PATH, 'utf-8');
+      allConfigs = JSON.parse(fileContent);
+    }
+    
+    // 过滤掉所有FigmaMCP类型的配置
+    allConfigs = allConfigs.filter((config: any) => config.type !== 'FigmaMCP');
+    
+    // 将新的FigmaMCP配置与其他配置合并
+    allConfigs = [...allConfigs, ...configs];
+    
+    // 保存到文件
+    fs.writeFileSync(CONFIG_FILE_PATH, JSON.stringify(allConfigs, null, 2), 'utf-8');
+    console.log('配置已保存到文件');
+  } catch (error) {
+    console.error('保存配置文件失败:', error);
+  }
+};
+
+// 初始化从文件加载配置
+let figmaMcpConfigs: FigmaMCPConfig[] = loadFigmaMcpConfigs();
 
 // 存储FigmaMCP服务实例
 const figmaMcpServices: Map<string, FigmaMCPService> = new Map();
@@ -19,6 +68,9 @@ const figmaMcpServices: Map<string, FigmaMCPService> = new Map();
  * 获取所有FigmaMCP配置
  */
 export const getFigmaMCPConfigs = (req: Request, res: Response): void => {
+  // 重新从文件加载配置
+  figmaMcpConfigs = loadFigmaMcpConfigs();
+  
   res.json({
     success: true,
     data: figmaMcpConfigs
@@ -29,6 +81,9 @@ export const getFigmaMCPConfigs = (req: Request, res: Response): void => {
  * 根据ID获取FigmaMCP配置
  */
 export const getFigmaMCPConfigById = (req: Request, res: Response): void => {
+  // 重新从文件加载配置
+  figmaMcpConfigs = loadFigmaMcpConfigs();
+  
   const { id } = req.params;
   const config = figmaMcpConfigs.find(config => config.id === id);
   
@@ -67,6 +122,7 @@ export const createFigmaMCPConfig = (req: Request, res: Response): void => {
     apiKey,
     fileId,
     teamId,
+    type: 'FigmaMCP',
     enabled: true,
     settings,
     createdAt: new Date(),
@@ -74,6 +130,7 @@ export const createFigmaMCPConfig = (req: Request, res: Response): void => {
   };
   
   figmaMcpConfigs.push(newConfig);
+  saveFigmaMcpConfigs(figmaMcpConfigs);
   
   // 创建FigmaMCP服务实例
   const service = createFigmaMCPService(newConfig);
@@ -115,6 +172,7 @@ export const updateFigmaMCPConfig = (req: Request, res: Response): void => {
   };
   
   figmaMcpConfigs[configIndex] = updatedConfig;
+  saveFigmaMcpConfigs(figmaMcpConfigs);
   
   // 更新FigmaMCP服务实例配置
   const service = figmaMcpServices.get(id);
@@ -153,6 +211,7 @@ export const deleteFigmaMCPConfig = (req: Request, res: Response): void => {
   
   // 删除配置
   figmaMcpConfigs.splice(configIndex, 1);
+  saveFigmaMcpConfigs(figmaMcpConfigs);
   
   res.json({
     success: true,

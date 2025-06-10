@@ -10,6 +10,7 @@ export interface FigmaMCPConfig {
   apiKey: string;
   fileId?: string;  // Figma文件ID
   teamId?: string;  // Figma团队ID
+  type?: string;    // 配置类型，如'FigmaMCP'
   enabled: boolean;
   settings?: FigmaMCPSettings;
   createdAt: Date;

@@ -1,9 +1,13 @@
 import React from 'react';
-import { Tabs, Card, Table, Empty, Typography, Tag } from 'antd';
+import Tabs from 'antd/lib/tabs';
+import Card from 'antd/lib/card';
+import Table from 'antd/lib/table';
+import Empty from 'antd/lib/empty';
+import Typography from 'antd/lib/typography';
+import Tag from 'antd/lib/tag';
 import { DesignSpec, ColorToken, TypographyToken, SpacingToken, EffectToken, ComponentToken } from '../../services/figmaMCP/types';
 import './FigmaDesignSpecView.css';
 
-const { TabPane } = Tabs;
 const { Title, Text } = Typography;
 
 interface FigmaDesignSpecViewProps {
@@ -195,6 +199,75 @@ const FigmaDesignSpecView: React.FC<FigmaDesignSpecViewProps> = ({ designSpec })
     },
   ];
 
+  // 定义Tabs的items
+  const tabItems = [
+    {
+      key: 'colors',
+      label: `颜色 (${designSpec.colors.length})`,
+      children: (
+        <Table 
+          dataSource={designSpec.colors} 
+          columns={colorColumns} 
+          rowKey="id" 
+          pagination={false}
+          className="design-spec-table"
+        />
+      )
+    },
+    {
+      key: 'typography',
+      label: `排版 (${designSpec.typography.length})`,
+      children: (
+        <Table 
+          dataSource={designSpec.typography} 
+          columns={typographyColumns} 
+          rowKey="id" 
+          pagination={false}
+          className="design-spec-table"
+        />
+      )
+    },
+    {
+      key: 'spacing',
+      label: `间距 (${designSpec.spacing.length})`,
+      children: (
+        <Table 
+          dataSource={designSpec.spacing} 
+          columns={spacingColumns} 
+          rowKey="id" 
+          pagination={false}
+          className="design-spec-table"
+        />
+      )
+    },
+    {
+      key: 'effects',
+      label: `效果 (${designSpec.effects.length})`,
+      children: (
+        <Table 
+          dataSource={designSpec.effects} 
+          columns={effectColumns} 
+          rowKey="id" 
+          pagination={false}
+          className="design-spec-table"
+        />
+      )
+    },
+    {
+      key: 'components',
+      label: `组件 (${designSpec.components.length})`,
+      children: (
+        <Table 
+          dataSource={designSpec.components} 
+          columns={componentColumns} 
+          rowKey="id" 
+          pagination={false}
+          className="design-spec-table"
+        />
+      )
+    }
+  ];
+
   return (
     <div className="design-spec-view">
       <Card className="design-spec-header-card">
@@ -214,53 +287,7 @@ const FigmaDesignSpecView: React.FC<FigmaDesignSpecViewProps> = ({ designSpec })
         </div>
       </Card>
 
-      <Tabs defaultActiveKey="colors" className="design-spec-tabs">
-        <TabPane tab={`颜色 (${designSpec.colors.length})`} key="colors">
-          <Table 
-            dataSource={designSpec.colors} 
-            columns={colorColumns} 
-            rowKey="id" 
-            pagination={false}
-            className="design-spec-table"
-          />
-        </TabPane>
-        <TabPane tab={`排版 (${designSpec.typography.length})`} key="typography">
-          <Table 
-            dataSource={designSpec.typography} 
-            columns={typographyColumns} 
-            rowKey="id" 
-            pagination={false}
-            className="design-spec-table"
-          />
-        </TabPane>
-        <TabPane tab={`间距 (${designSpec.spacing.length})`} key="spacing">
-          <Table 
-            dataSource={designSpec.spacing} 
-            columns={spacingColumns} 
-            rowKey="id" 
-            pagination={false}
-            className="design-spec-table"
-          />
-        </TabPane>
-        <TabPane tab={`效果 (${designSpec.effects.length})`} key="effects">
-          <Table 
-            dataSource={designSpec.effects} 
-            columns={effectColumns} 
-            rowKey="id" 
-            pagination={false}
-            className="design-spec-table"
-          />
-        </TabPane>
-        <TabPane tab={`组件 (${designSpec.components.length})`} key="components">
-          <Table 
-            dataSource={designSpec.components} 
-            columns={componentColumns} 
-            rowKey="id" 
-            pagination={false}
-            className="design-spec-table"
-          />
-        </TabPane>
-      </Tabs>
+      <Tabs defaultActiveKey="colors" className="design-spec-tabs" items={tabItems} />
     </div>
   );
 };

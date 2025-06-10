@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma组件库详细整理标准 - AutoKit设计系统指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #0f172a;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .nav {
+            background: #f8fafc;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            padding: 0 24px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .nav ul::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav a:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Main Content */
+        .main {
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .section h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 32px 0 16px 0;
+            color: #334155;
+        }
+
+        .section h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 24px 0 12px 0;
+            color: #475569;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .card h5 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1e293b;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .code-inline {
+            background: #f1f5f9;
+            color: #334155;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.875rem;
+        }
+
+        /* Tree Structure */
+        .tree {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.875rem;
+            line-height: 1.8;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .tree pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .badge-primary {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        /* Lists */
+        .list-styled {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .list-styled li {
+            margin-bottom: 8px;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .checklist li::before {
+            content: "✅";
+            flex-shrink: 0;
+        }
+
+        .checklist.todo li::before {
+            content: "☑️";
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .nav ul {
+                gap: 16px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .nav, .footer {
+                display: none;
+            }
+            
+            .card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1>Figma组件库详细整理标准</h1>
+            <p>AutoKit设计系统集成指南 - 从设计令牌到代码生成的完整解决方案</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul>
+                <li><a href="#overview">概述</a></li>
+                <li><a href="#structure">目录结构</a></li>
+                <li><a href="#tokens">设计令牌</a></li>
+                <li><a href="#components">基础组件</a></li>
+                <li><a href="#layout">布局组件</a></li>
+                <li><a href="#templates">页面模板</a></li>
+                <li><a href="#utilities">工具组件</a></li>
+                <li><a href="#integration">AutoKit集成</a></li>
+                <li><a href="#best-practices">最佳实践</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Overview Section -->
+            <section id="overview" class="section">
+                <h2>📋 概述</h2>
+                <div class="alert alert-info">
+                    <strong>目标：</strong>建立一套标准化的Figma组件库整理规范，确保与AutoKit项目的设计系统生成功能完美集成，支持从设计到代码的自动化工作流。
+                </div>
+
+                <h3>核心原则</h3>
+                <ul class="checklist">
+                    <li><strong>API兼容性：</strong>完全匹配AutoKit的Figma API提取逻辑</li>
+                    <li><strong>可维护性：</strong>清晰的命名和组织结构便于长期维护</li>
+                    <li><strong>扩展性：</strong>模块化设计支持未来功能扩展</li>
+                    <li><strong>一致性：</strong>统一的设计原则确保视觉和交互一致</li>
+                    <li><strong>开发友好：</strong>结构化的数据便于代码生成和规范转换</li>
+                </ul>
+
+                <h3>适用场景</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>🎨 设计团队</h5>
+                        <p>建立统一的设计语言，提高设计效率和一致性</p>
+                    </div>
+                    <div class="card">
+                        <h5>💻 开发团队</h5>
+                        <p>基于设计规范自动生成代码，减少手动实现工作</p>
+                    </div>
+                    <div class="card">
+                        <h5>🏢 产品团队</h5>
+                        <p>确保产品体验的一致性，加快迭代速度</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Directory Structure -->
+            <section id="structure" class="section">
+                <h2>📁 目录结构</h2>
+                <p>推荐的Figma文件组织结构，支持清晰的逻辑分层和高效的团队协作：</p>
+
+                <div class="tree">
+                    <pre>📁 Design System Library
+├── 🎨 01-Design Tokens
+│   ├── Colors
+│   ├── Typography  
+│   ├── Spacing
+│   ├── Border Radius
+│   └── Shadows
+├── 🧩 02-Foundation Components
+│   ├── Buttons
+│   ├── Form Controls
+│   ├── Feedback
+│   └── Navigation
+├── 📱 03-Layout Components
+│   ├── Container
+│   ├── Grid
+│   ├── Card
+│   └── Modal
+├── 🌐 04-Page Templates
+│   ├── Dashboard
+│   ├── Auth
+│   ├── Settings
+│   └── Landing
+├── 🔧 05-Utilities
+│   ├── Icons
+│   ├── Illustrations
+│   └── Avatars
+└── 📚 06-Documentation
+    ├── Getting Started
+    ├── Design Principles
+    └── Usage Guidelines</pre>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>注意：</strong>页面命名使用数字前缀确保排序，便于团队成员快速定位所需内容。
+                </div>
+            </section>
+
+            <!-- Design Tokens -->
+            <section id="tokens" class="section">
+                <h2>🎨 01-Design Tokens 设计令牌</h2>
+                <p>设计令牌是设计系统的基础，定义了所有视觉属性的标准值。</p>
+
+                <h3>1.1 颜色系统 (Colors Page)</h3>
+                
+                <h4>主色板结构</h4>
+                <div class="tree">
+                    <pre>🎨 Primary Palette
+├── Primary/50   (#f0f9ff) - 最浅色调
+├── Primary/100  (#e0f2fe) 
+├── Primary/200  (#bae6fd)
+├── Primary/300  (#7dd3fc)
+├── Primary/400  (#38bdf8)
+├── Primary/500  (#0ea5e9) ← 主色
+├── Primary/600  (#0284c7)
+├── Primary/700  (#0369a1)
+├── Primary/800  (#075985)
+└── Primary/900  (#0c4a6e) - 最深色调</pre>
+                </div>
+
+                <h4>语义化颜色</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>颜色类型</th>
+                                <th>用途</th>
+                                <th>命名格式</th>
+                                <th>示例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge badge-success">Success</span></td>
+                                <td>成功状态、确认操作</td>
+                                <td>Success/50~900</td>
+                                <td>Success/500 (#10b981)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-warning">Warning</span></td>
+                                <td>警告信息、注意事项</td>
+                                <td>Warning/50~900</td>
+                                <td>Warning/500 (#f59e0b)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-error">Error</span></td>
+                                <td>错误状态、危险操作</td>
+                                <td>Error/50~900</td>
+                                <td>Error/500 (#ef4444)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge badge-primary">Info</span></td>
+                                <td>信息提示、链接</td>
+                                <td>Info/50~900</td>
+                                <td>Info/500 (#3b82f6)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>功能性颜色</h4>
+                <div class="code-block">🎨 Functional Colors
+├── Background/Primary    (#ffffff) - 主背景
+├── Background/Secondary  (#f8fafc) - 次要背景
+├── Background/Tertiary   (#f1f5f9) - 第三层背景
+├── Surface/Primary       (#ffffff) - 卡片表面
+├── Surface/Secondary     (#f8fafc) - 次要表面
+├── Border/Primary        (#e2e8f0) - 主边框
+├── Border/Secondary      (#cbd5e1) - 次要边框
+├── Text/Primary          (#0f172a) - 主文本
+├── Text/Secondary        (#475569) - 次要文本
+├── Text/Tertiary         (#64748b) - 第三级文本
+└── Text/Disabled         (#94a3b8) - 禁用文本</div>
+
+                <div class="alert alert-info">
+                    <strong>Figma设置要求：</strong>
+                    <ul class="list-styled">
+                        <li>每个颜色必须创建为 <strong>Color Style</strong></li>
+                        <li>命名格式：<code class="code-inline">Color/Category/Variant</code></li>
+                        <li>描述中包含：HEX值、RGB值、使用场景</li>
+                        <li>设置为 <strong>Published Style</strong> 以便API获取</li>
+                    </ul>
+                </div>
+
+                <h3>1.2 字体系统 (Typography Page)</h3>
+
+                <h4>字体层级</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>类型</th>
+                                <th>名称</th>
+                                <th>字号/行高/字重</th>
+                                <th>使用场景</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3"><strong>Display</strong></td>
+                                <td>Display/Large</td>
+                                <td>48px/1.2/700</td>
+                                <td>主标题、英雄区域</td>
+                            </tr>
+                            <tr>
+                                <td>Display/Medium</td>
+                                <td>40px/1.2/700</td>
+                                <td>页面标题</td>
+                            </tr>
+                            <tr>
+                                <td>Display/Small</td>
+                                <td>32px/1.2/700</td>
+                                <td>章节标题</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4"><strong>Heading</strong></td>
+                                <td>Heading/XL</td>
+                                <td>28px/1.3/600</td>
+                                <td>一级标题</td>
+                            </tr>
+                            <tr>
+                                <td>Heading/Large</td>
+                                <td>24px/1.3/600</td>
+                                <td>二级标题</td>
+                            </tr>
+                            <tr>
+                                <td>Heading/Medium</td>
+                                <td>20px/1.4/600</td>
+                                <td>三级标题</td>
+                            </tr>
+                            <tr>
+                                <td>Heading/Small</td>
+                                <td>18px/1.4/600</td>
+                                <td>四级标题</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3"><strong>Body</strong></td>
+                                <td>Body/Large</td>
+                                <td>16px/1.5/400</td>
+                                <td>正文大号</td>
+                            </tr>
+                            <tr>
+                                <td>Body/Medium</td>
+                                <td>14px/1.5/400</td>
+                                <td>正文默认</td>
+                            </tr>
+                            <tr>
+                                <td>Body/Small</td>
+                                <td>12px/1.5/400</td>
+                                <td>正文小号</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>字体属性标准</h4>
+                <div class="code-block">📝 Font Properties
+├── Font Family: Inter (推荐) / SF Pro / Roboto
+├── Font Weight: 
+│   ├── 400 (Regular) - 正文
+│   ├── 500 (Medium) - 强调
+│   ├── 600 (SemiBold) - 标题
+│   └── 700 (Bold) - 重要标题
+├── Line Height: 
+│   ├── 1.2 (Tight) - 大标题
+│   ├── 1.4 (Normal) - 小标题
+│   └── 1.5 (Relaxed) - 正文
+├── Letter Spacing: 0 或 -0.01em
+└── Text Case: None / Uppercase(按钮/标签)</div>
+
+                <h3>1.3 间距系统 (Spacing Page)</h3>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>📏 间距标准</h5>
+                        <div class="code-block">2px   (Extra Tight)
+4px   (Tight) 
+8px   (Small)
+12px  (Medium Small)
+16px  (Medium) ← 基础单位
+20px  (Medium Large)
+24px  (Large)
+32px  (Extra Large)
+40px  (XXL)
+48px  (XXXL)
+64px  (Huge)
+80px  (Giant)</div>
+                    </div>
+                    <div class="card">
+                        <h5>📐 间距应用</h5>
+                        <ul class="list-styled">
+                            <li><strong>组件内部：</strong>4px, 8px, 12px, 16px</li>
+                            <li><strong>组件外部：</strong>16px, 24px, 32px</li>
+                            <li><strong>区块间距：</strong>40px, 48px, 64px</li>
+                            <li><strong>页面布局：</strong>80px+</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>1.4 圆角系统 (Border Radius Page)</h3>
+                <div class="code-block">🔄 Border Radius
+├── None      (0px)  - 方形元素
+├── Small     (4px)  - 小按钮、标签
+├── Medium    (8px)  - 默认按钮、输入框
+├── Large     (12px) - 卡片、面板
+├── XL        (16px) - 大卡片
+├── XXL       (24px) - 模态框
+└── Round     (9999px) - 圆形头像、按钮</div>
+
+                <h3>1.5 阴影系统 (Shadow Page)</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>名称</th>
+                                <th>CSS值</th>
+                                <th>使用场景</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Shadow/None</td>
+                                <td>none</td>
+                                <td>平面元素</td>
+                            </tr>
+                            <tr>
+                                <td>Shadow/Small</td>
+                                <td>0 1px 2px rgba(0,0,0,0.05)</td>
+                                <td>按钮、小卡片</td>
+                            </tr>
+                            <tr>
+                                <td>Shadow/Medium</td>
+                                <td>0 4px 6px rgba(0,0,0,0.07)</td>
+                                <td>卡片、下拉菜单</td>
+                            </tr>
+                            <tr>
+                                <td>Shadow/Large</td>
+                                <td>0 10px 15px rgba(0,0,0,0.1)</td>
+                                <td>模态框、浮层</td>
+                            </tr>
+                            <tr>
+                                <td>Shadow/XL</td>
+                                <td>0 20px 25px rgba(0,0,0,0.15)</td>
+                                <td>抽屉、大型浮层</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Foundation Components -->
+            <section id="components" class="section">
+                <h2>🧩 02-Foundation Components 基础组件</h2>
+
+                <h3>2.1 按钮组件 (Buttons Page)</h3>
+
+                <h4>按钮变体矩阵</h4>
+                <div class="tree">
+                    <pre>🔘 Button Components
+├── Button/Primary
+│   ├── Size=Large, State=Default
+│   ├── Size=Large, State=Hover  
+│   ├── Size=Large, State=Active
+│   ├── Size=Large, State=Disabled
+│   ├── Size=Medium, State=Default
+│   ├── Size=Medium, State=Hover
+│   └── Size=Small, State=Default
+├── Button/Secondary
+├── Button/Ghost
+├── Button/Danger
+└── Button/Link</pre>
+                </div>
+
+                <h4>组件属性设置</h4>
+                <div class="code-block">// Component Properties
+{
+  size: Variant("Large", "Medium", "Small"),
+  state: Variant("Default", "Hover", "Active", "Disabled"),
+  hasIcon: Boolean(false),
+  iconPosition: Variant("Left", "Right"),
+  isFullWidth: Boolean(false)
+}</div>
+
+                <h4>Auto Layout设置</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>属性</th>
+                                <th>设置</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Direction</td>
+                                <td>Horizontal</td>
+                                <td>水平排列图标和文字</td>
+                            </tr>
+                            <tr>
+                                <td>Spacing</td>
+                                <td>8px</td>
+                                <td>图标与文字间距</td>
+                            </tr>
+                            <tr>
+                                <td>Padding</td>
+                                <td>Large: 16px 24px<br>Medium: 12px 20px<br>Small: 8px 16px</td>
+                                <td>内边距</td>
+                            </tr>
+                            <tr>
+                                <td>Alignment</td>
+                                <td>Center</td>
+                                <td>内容居中对齐</td>
+                            </tr>
+                            <tr>
+                                <td>Sizing</td>
+                                <td>Hug Contents (宽度)<br>Fixed (高度)</td>
+                                <td>自适应宽度，固定高度</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>按钮尺寸规范</h4>
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>Large Button</h5>
+                        <p><strong>高度：</strong>48px</p>
+                        <p><strong>内边距：</strong>16px 24px</p>
+                        <p><strong>字体：</strong>Button/Large (16px)</p>
+                    </div>
+                    <div class="card">
+                        <h5>Medium Button</h5>
+                        <p><strong>高度：</strong>40px</p>
+                        <p><strong>内边距：</strong>12px 20px</p>
+                        <p><strong>字体：</strong>Button/Medium (14px)</p>
+                    </div>
+                    <div class="card">
+                        <h5>Small Button</h5>
+                        <p><strong>高度：</strong>32px</p>
+                        <p><strong>内边距：</strong>8px 16px</p>
+                        <p><strong>字体：</strong>Button/Small (12px)</p>
+                    </div>
+                </div>
+
+                <h3>2.2 表单组件 (Form Controls Page)</h3>
+
+                <h4>输入框组件</h4>
+                <div class="tree">
+                    <pre>📝 Input Components
+├── Input/Text
+│   ├── State=Default, Size=Large
+│   ├── State=Focus, Size=Large
+│   ├── State=Error, Size=Large
+│   ├── State=Disabled, Size=Large
+│   └── State=Success, Size=Large
+├── Input/Password
+├── Input/Search
+└── Input/Number</pre>
+                </div>
+
+                <h4>输入框结构</h4>
+                <div class="code-block">🏗️ Input Structure
+├── Label (Optional)
+├── Input Container
+│   ├── Prefix Icon (Optional)
+│   ├── Input Field
+│   └── Suffix Icon (Optional)
+├── Helper Text (Optional)
+└── Error Message (Optional)</div>
+
+                <h4>下拉选择器</h4>
+                <div class="tree">
+                    <pre>🔽 Select Components  
+├── Select/Single
+│   ├── State=Default
+│   ├── State=Open
+│   ├── State=Disabled
+│   └── State=Error
+├── Select/Multiple
+└── Select/Searchable</pre>
+                </div>
+
+                <h4>复选框和单选框</h4>
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>☑️ Checkbox Components</h5>
+                        <ul class="list-styled">
+                            <li>State=Unchecked</li>
+                            <li>State=Checked</li>
+                            <li>State=Indeterminate</li>
+                            <li>State=Disabled</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h5>🔘 Radio Components</h5>
+                        <ul class="list-styled">
+                            <li>State=Unchecked</li>
+                            <li>State=Checked</li>
+                            <li>State=Disabled</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>2.3 反馈组件 (Feedback Page)</h3>
+
+                <h4>通知组件</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>组件</th>
+                                <th>类型</th>
+                                <th>使用场景</th>
+                                <th>持续时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="4">Alert</td>
+                                <td>Info</td>
+                                <td>信息提示</td>
+                                <td>持久显示</td>
+                            </tr>
+                            <tr>
+                                <td>Success</td>
+                                <td>成功反馈</td>
+                                <td>持久显示</td>
+                            </tr>
+                            <tr>
+                                <td>Warning</td>
+                                <td>警告信息</td>
+                                <td>持久显示</td>
+                            </tr>
+                            <tr>
+                                <td>Error</td>
+                                <td>错误提示</td>
+                                <td>持久显示</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4">Toast</td>
+                                <td>Success</td>
+                                <td>操作成功</td>
+                                <td>3-5秒</td>
+                            </tr>
+                            <tr>
+                                <td>Warning</td>
+                                <td>操作警告</td>
+                                <td>5-8秒</td>
+                            </tr>
+                            <tr>
+                                <td>Error</td>
+                                <td>操作失败</td>
+                                <td>手动关闭</td>
+                            </tr>
+                            <tr>
+                                <td>Info</td>
+                                <td>系统通知</td>
+                                <td>3-5秒</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4>标签组件</h4>
+                <div class="code-block">🏷️ Tag Components
+├── Tag/Default
+│   ├── Size=Small (12px height)
+│   ├── Size=Medium (20px height)
+│   └── Size=Large (28px height)
+├── Tag/Outlined
+├── Tag/Success
+├── Tag/Warning
+└── Tag/Error</div>
+            </section>
+
+            <!-- Layout Components -->
+            <section id="layout" class="section">
+                <h2>📱 03-Layout Components 布局组件</h2>
+
+                <h3>3.1 容器组件 (Container Page)</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>容器类型</th>
+                                <th>最大宽度</th>
+                                <th>使用场景</th>
+                                <th>响应式行为</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Container/Fluid</td>
+                                <td>100%</td>
+                                <td>全宽布局</td>
+                                <td>始终填满容器</td>
+                            </tr>
+                            <tr>
+                                <td>Container/Fixed</td>
+                                <td>1200px (Desktop)<br>768px (Tablet)<br>375px (Mobile)</td>
+                                <td>内容页面</td>
+                                <td>断点式响应</td>
+                            </tr>
+                            <tr>
+                                <td>Container/Constrained</td>
+                                <td>1440px</td>
+                                <td>大屏适配</td>
+                                <td>超宽屏居中</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>3.2 网格系统 (Grid Page)</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>🏗️ 12列网格系统</h5>
+                        <ul class="list-styled">
+                            <li><strong>列间距：</strong>24px</li>
+                            <li><strong>边距：</strong>24px</li>
+                            <li><strong>列宽：</strong>自适应</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h5>📱 响应式断点</h5>
+                        <ul class="list-styled">
+                            <li><strong>Mobile：</strong>375px</li>
+                            <li><strong>Tablet：</strong>768px</li>
+                            <li><strong>Desktop：</strong>1024px</li>
+                            <li><strong>Large：</strong>1440px</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>3.3 卡片组件 (Card Page)</h3>
+                <div class="tree">
+                    <pre>📋 Card Components
+├── Card/Basic
+├── Card/With Header
+├── Card/With Footer
+├── Card/With Image
+├── Card/Interactive
+└── Card/Outlined</pre>
+                </div>
+
+                <h4>卡片结构</h4>
+                <div class="code-block">🏗️ Card Structure
+├── Card Container
+│   ├── Card Header (Optional)
+│   │   ├── Title
+│   │   ├── Subtitle (Optional)
+│   │   └── Actions (Optional)
+│   ├── Card Body
+│   │   └── Content
+│   └── Card Footer (Optional)
+│       └── Actions</div>
+
+                <h3>3.4 模态框组件 (Modal Page)</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>模态框类型</th>
+                                <th>宽度</th>
+                                <th>高度</th>
+                                <th>使用场景</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Modal/Small</td><td>400px</td>
+                                <td>Auto</td>
+                                <td>确认对话框</td>
+                            </tr>
+                            <tr>
+                                <td>Modal/Medium</td>
+                                <td>600px</td>
+                                <td>Auto</td>
+                                <td>表单对话框</td>
+                            </tr>
+                            <tr>
+                                <td>Modal/Large</td>
+                                <td>800px</td>
+                                <td>Auto</td>
+                                <td>详情页面</td>
+                            </tr>
+                            <tr>
+                                <td>Modal/Full Screen</td>
+                                <td>100vw</td>
+                                <td>100vh</td>
+                                <td>移动端全屏</td>
+                            </tr>
+                            <tr>
+                                <td>Modal/Drawer</td>
+                                <td>320px-480px</td>
+                                <td>100vh</td>
+                                <td>侧边栏</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Page Templates -->
+            <section id="templates" class="section">
+                <h2>🌐 04-Page Templates 页面模板</h2>
+                <div class="tree">
+                    <pre>🏠 Page Templates
+├── Template/Dashboard
+│   ├── Header
+│   ├── Sidebar  
+│   ├── Main Content
+│   └── Footer
+├── Template/Landing
+├── Template/Auth
+│   ├── Login
+│   ├── Register
+│   └── Reset Password
+├── Template/Settings
+└── Template/Profile</pre>
+                </div>
+            </section>
+
+            <!-- Utilities -->
+            <section id="utilities" class="section">
+                <h2>🔧 05-Utilities 工具组件</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>🎭 图标系统</h5>
+                        <ul class="list-styled">
+                            <li>Icons/16px (小图标)</li>
+                            <li>Icons/20px (默认)</li>
+                            <li>Icons/24px (中等)</li>
+                            <li>Icons/32px (大图标)</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h5>🖼️ 插图和头像</h5>
+                        <ul class="list-styled">
+                            <li>Avatar/User</li>
+                            <li>Avatar/Group</li>
+                            <li>Empty States</li>
+                            <li>Error States</li>
+                            <li>Loading States</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AutoKit Integration -->
+            <section id="integration" class="section">
+                <h2>🔗 AutoKit集成配置</h2>
+
+                <h3>API提取优化设置</h3>
+                <div class="code-block">// 确保所有设计令牌都设置为Published Styles
+const requiredStyles = {
+  colors: "FILL", // 对应后端 style_type === 'FILL'
+  typography: "TEXT", // 对应后端 style_type === 'TEXT'  
+  effects: "EFFECT" // 阴影等效果
+};</div>
+
+                <h3>命名约定严格要求</h3>
+                <div class="alert alert-error">
+                    <strong>Styles命名：</strong><br>
+                    ✅ 正确: Color/Primary/500, Typography/Heading/H1<br>
+                    ❌ 错误: primary-blue, heading-large, btn-text
+                </div>
+
+                <div class="alert alert-error">
+                    <strong>Components命名：</strong><br>
+                    ✅ 正确: Button/Primary, Input/Text, Alert/Success<br>
+                    ❌ 错误: primary-button, text-input, success-alert
+                </div>
+            </section>
+
+            <!-- Best Practices -->
+            <section id="best-practices" class="section">
+                <h2>💡 最佳实践</h2>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h5>🎨 设计原则</h5>
+                        <ul class="checklist">
+                            <li>保持设计的一致性</li>
+                            <li>遵循可访问性标准</li>
+                            <li>使用语义化的命名</li>
+                            <li>建立清晰的视觉层次</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h5>🔧 技术规范</h5>
+                        <ul class="checklist">
+                            <li>所有组件使用Auto Layout</li>
+                            <li>设置完整的Component Properties</li>
+                            <li>发布所有Styles和Components</li>
+                            <li>编写详细的组件描述</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h5>👥 团队协作</h5>
+                        <ul class="checklist">
+                            <li>定期同步设计规范</li>
+                            <li>建立代码审查流程</li>
+                            <li>维护详细的文档</li>
+                            <li>设置合理的权限管理</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AutoKit项目. 本指南旨在帮助团队建立标准化的设计系统工作流。</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -428,3 +428,208 @@
 - `teamId`: 用于指定Figma团队
 
 **建议**：可以为团队ID字段添加更详细的Tooltip说明，类似于文件ID的提示，以便用户更清楚地了解如何获取和使用团队ID。 
+
+## 2023-11-01
+
+### 修复前端列表组件问题
+
+1. 修改了 `FigmaMCPConfigList.tsx` 组件：
+   - 添加了数据检查逻辑，确保配置数据始终是数组
+   - 增加了默认空数组值，防止组件渲染错误
+   - 修复了组件导入方式，使用 `antd/lib/xx` 方式导入各组件
+   - 添加了类型定义，解决TypeScript类型错误
+
+2. 修改了 `FigmaMCPPage.tsx` 中的操作面板组件接口：
+   - 添加了配置缺失时的警告提示
+   - 优化了组件属性传递
+
+这些修改解决了前端界面中的数据源问题，使得列表组件能够正确渲染，即使后端接口返回的数据结构不完全符合预期。 
+
+## 2023-11-02
+
+### 优化FigmaMCP页面布局
+
+1. 重构了 `FigmaMCPPage.tsx` 页面布局：
+   - 添加了页面顶部状态区域，显示当前配置和连接状态
+   - 引入了连接状态指示器，清晰显示与Figma的连接状况
+   - 优化了配置管理页面，将列表和表单放入独立卡片中
+   - 改进了设计规范页面，添加了工具栏和导出设计令牌功能
+   - 增强了操作面板页面，添加了当前配置信息展示和连接状态卡片
+
+2. 更新了 `FigmaMCPPage.css` 样式：
+   - 添加了响应式布局支持
+   - 美化了卡片和状态指示器样式
+   - 优化了表单和列表的展示效果
+   - 添加了缺失配置警告的样式
+
+3. 重构了 `FigmaExecutePanel.tsx` 组件：
+   - 更新了组件接口，添加对config属性的支持
+   - 修改了属性名称，使其更符合实际用途
+   - 内部根据config状态自动处理disabled状态
+
+这些优化使FigmaMCP页面的布局更加现代化，用户体验更佳，特别是改进了连接状态的可视化展示和配置信息的展示方式。 
+
+## 2024-06-10 修复DesignSystemGuidePage组件错误
+
+1. 修复问题：
+   - 修复了DesignSystemGuidePage.tsx中导入的`ComponentOutlined`图标不存在的问题
+   - 将不存在的`ComponentOutlined`图标替换为`BlockOutlined`图标
+   - 修复了Anchor组件的onChange参数类型问题，添加了null检查
+   - 安装了`@ant-design/icons`依赖包，确保图标正常显示
+
+2. 优化内容：
+   - 重构了导入方式，使用`antd/lib/xxx`的方式导入组件，解决类型错误
+   - 修复了Tag组件的使用方式，将图标作为子元素而不是属性传入
+   - 优化了设计系统指南页面的布局和样式
+
+3. 技术细节：
+   - 使用PowerShell安装了缺少的依赖
+   - 修复了类型错误和组件使用方式
+   - 确保页面可以正常加载和显示 
+
+## 2024-06-10 修复React组件过时API警告
+
+1. 修复Menu组件过时API：
+   - 将`Menu.Item`子组件方式替换为使用`items`属性
+   - 使用数组定义菜单项，每项包含key、icon和label属性
+   - 移除了嵌套的JSX结构，改为声明式配置
+
+2. 修复Anchor组件过时API：
+   - 将`Link`子组件方式替换为使用`items`属性
+   - 定义了完整的锚点项结构，包括嵌套的children
+   - 保留了原有的onChange和getCurrentAnchor逻辑
+
+3. 修复BackTop组件过时API：
+   - 将独立的`BackTop`组件替换为`FloatButton.BackTop`
+   - 导入了FloatButton组件，使用其BackTop子组件
+   - 保持了原有的回到顶部功能
+
+4. 技术细节：
+   - 根据React 18和Ant Design 5.x的最佳实践进行更新
+   - 消除了控制台中的废弃API警告
+   - 改进了组件结构，使代码更易于维护 
+
+## 2024-06-10 修复MCP_CONFIG_NAME环境变量错误
+
+1. 问题描述：
+   - 前端控制台出现错误：`Uncaught ReferenceError: __MCP_CONFIG_NAME__ is not defined`
+   - 这是由于缺少环境变量定义导致的
+
+2. 解决方案：
+   - 修改 `frontend/vite.config.ts` 文件，添加环境变量定义
+   - 在 `define` 配置中添加 `__MCP_CONFIG_NAME__: JSON.stringify('AutoKit')`
+   - 这样前端代码中可以正常使用 `__MCP_CONFIG_NAME__` 变量
+
+3. 技术细节：
+   - Vite的`define`选项允许在构建时替换代码中的变量
+   - 使用`JSON.stringify`确保值被正确地作为字符串注入
+   - 设置为'AutoKit'与项目名称保持一致 
+
+## 2024-06-10 修复开发服务器错误和环境变量问题
+
+1. 降级Vite版本：
+   - 发现Vite 6.3.5版本与项目依赖不兼容，导致服务器内部错误
+   - 卸载最新版本的Vite，安装更稳定的4.5.2版本
+   - 修复了Internal Server Error错误
+
+2. 通过全局变量解决`__MCP_CONFIG_NAME__`问题：
+   - 在`frontend/index.html`中添加全局变量定义脚本
+   - 设置`window.__MCP_CONFIG_NAME__ = "AutoKit"`
+   - 这样在客户端代码中可以直接访问该变量，而不依赖于Vite的define配置
+
+3. 技术细节：
+   - 经检查，没有找到代码中直接使用`__MCP_CONFIG_NAME__`的地方
+   - 可能是第三方库或动态导入的代码在使用该变量
+   - 同时保留了Vite的define配置和全局变量定义，以确保兼容性 
+
+## 2024-06-10 解决Node.js废弃警告
+
+1. 修复punycode和util._extend废弃警告：
+   - 创建`.npmrc`文件，配置`node-option=--no-deprecation`选项
+   - 在项目根目录和frontend目录下各添加一个.npmrc文件
+   - 修改所有npm脚本，添加`--no-deprecation`选项
+
+2. 前端修改：
+   - 修改`frontend/package.json`中的dev脚本，使用`node --no-deprecation ./node_modules/.bin/vite`
+   - 确保前端启动时不再显示废弃警告
+
+3. 后端修改：
+   - 修改`backend/package.json`中的所有脚本，添加`--no-deprecation`选项
+   - 对于使用bun的脚本，使用完整路径`./node_modules/.bin/bun`
+   - 对于使用ts-node的脚本，使用完整路径`./node_modules/.bin/ts-node`
+
+4. 启动脚本修改：
+   - 修改`scripts/start-all.js`，直接使用node命令启动服务
+   - 添加`--no-deprecation`选项，确保整个启动过程中不显示废弃警告
+   - 使用完整路径确保正确找到可执行文件
+
+这些修改确保了在开发和生产环境中，不再显示关于punycode模块和util._extend API已废弃的警告信息，使控制台输出更加清晰。 
+
+## 2024-06-10 修复Ant Design组件过时API警告
+
+1. 修复Tabs组件中TabPane过时警告：
+   - 修改`FigmaMCPPage.tsx`中的Tabs组件，将TabPane子组件替换为items属性
+   - 修改`FigmaDesignSpecView.tsx`，同样将TabPane替换为items属性
+   - 修改`CodeGenPage.tsx`，将TabPane子组件替换为items属性并使用React Fragment包裹多个Card
+   - 创建tabItems数组，每个项包含key、label和children属性
+   - 维持了原有的UI和功能，同时消除了废弃API警告
+
+2. 修复导入方式：
+   - 将`import { Tabs, Card, ... } from 'antd'`替换为单独导入
+   - 使用`import Tabs from 'antd/lib/tabs'`和`import Tabs from 'antd/es/tabs'`等方式导入组件
+   - 确保TypeScript类型检查正确工作
+
+3. 解决其他警告：
+   - 解决Table组件columns属性的类型问题
+   - 修复Tag组件的使用方式，确保children作为子元素而非属性传入
+   - 修复Form.Item组件的children问题，确保每个带name属性的Form.Item只有单个子元素
+
+这些修改解决了控制台中显示的Ant Design组件相关警告，使界面代码符合Ant Design 5.x的最佳实践。所有修改都保持了原有的功能和UI体验不变，同时提高了代码的可维护性。 
+
+## 2024-06-11 修复Windows下启动脚本问题
+
+1. 修复scripts/start-all.js脚本在Windows环境下执行失败的问题：
+   - 发现问题：直接调用`./node_modules/.bin/`目录下的脚本在Windows系统下导致bash语法错误
+   - 错误信息：`basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")` 中的语法在Windows PowerShell/cmd中不支持
+   - 解决方案：使用`npx`命令代替直接调用bin目录下的脚本
+   - 将`node --no-deprecation ./node_modules/.bin/cross-env`替换为`npx cross-env`
+   - 将`node --no-deprecation ./node_modules/.bin/vite`替换为`npx vite`
+   - 通过环境变量`NODE_OPTIONS='--no-deprecation'`传递deprecation选项
+
+2. 优化启动命令：
+   - 简化命令结构，提高可读性
+   - 通过环境变量统一传递Node.js选项
+   - 确保前后端服务在Windows环境下均能正确启动
+
+这个修复确保了在Windows系统上也能正常使用`npm run start-all`命令一键启动所有服务，不再出现bash语法错误。 
+
+## 2024-06-11 修复Form.Item组件警告
+
+1. 修复控制台中Form.Item相关的警告：
+   - 问题描述：控制台显示警告 `[antd: Form.Item] A 'Form.Item' with a 'name' prop must have a single child element.`
+   - 原因：在`FigmaMCPConfigForm.tsx`中，`channelId`表单项包含了多个子元素（Input和提示信息div）
+   - 解决方案：将多个子元素包装在一个div容器内，确保Form.Item只有一个直接子元素
+   - 修改文件：`frontend/src/components/figmaMCP/FigmaMCPConfigForm.tsx`
+
+2. 具体修改：
+   ```jsx
+   // 修改前
+   <Form.Item name="channelId" label={...}>
+     <Input placeholder="设置固定通道ID（推荐设置，例如：autokit）" />
+     <div style={{ marginTop: 4, fontSize: 12, color: '#1890ff' }}>
+       推荐设置固定通道ID，在Figma插件中使用相同的ID可确保稳定连接
+     </div>
+   </Form.Item>
+
+   // 修改后
+   <Form.Item name="channelId" label={...}>
+     <div>
+       <Input placeholder="设置固定通道ID（推荐设置，例如：autokit）" />
+       <div style={{ marginTop: 4, fontSize: 12, color: '#1890ff' }}>
+         推荐设置固定通道ID，在Figma插件中使用相同的ID可确保稳定连接
+       </div>
+     </div>
+   </Form.Item>
+   ```
+
+这个修复解决了控制台中显示的Form.Item警告，确保了代码符合Ant Design的最佳实践。修改保持了原有的UI和功能不变，同时提高了代码的可维护性。 

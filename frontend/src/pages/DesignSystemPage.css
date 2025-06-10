@@ -1,0 +1,132 @@
+.design-system-page {
+  padding: 0;
+  background: #f5f5f5;
+  min-height: calc(100vh - 200px);
+}
+
+.page-header {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.config-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+}
+
+.result-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+}
+
+.placeholder-card {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 8px;
+}
+
+.spec-preview {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  padding: 16px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', monospace;
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 400px;
+}
+
+.spec-info {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f0f2f5;
+  border-radius: 6px;
+}
+
+.usage-guide {
+  margin-bottom: 24px;
+}
+
+.usage-guide .ant-alert-description p {
+  margin-bottom: 4px;
+}
+
+.usage-guide .ant-alert-description p:last-child {
+  margin-bottom: 0;
+}
+
+.result-container {
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 16px;
+  }
+  
+  .spec-preview {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+/* 滚动条样式 */
+.result-container::-webkit-scrollbar,
+.spec-preview::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.result-container::-webkit-scrollbar-track,
+.spec-preview::-webkit-scrollbar-track {
+  background: #2d2d2d;
+  border-radius: 3px;
+}
+
+.result-container::-webkit-scrollbar-thumb,
+.spec-preview::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+.result-container::-webkit-scrollbar-thumb:hover,
+.spec-preview::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* 代码高亮样式 */
+.spec-preview .token.string {
+  color: #ce9178;
+}
+
+.spec-preview .token.number {
+  color: #b5cea8;
+}
+
+.spec-preview .token.boolean {
+  color: #569cd6;
+}
+
+.spec-preview .token.null {
+  color: #569cd6;
+}
+
+.spec-preview .token.property {
+  color: #9cdcfe;
+}
+
+.spec-preview .token.punctuation {
+  color: #d4d4d4;
+}

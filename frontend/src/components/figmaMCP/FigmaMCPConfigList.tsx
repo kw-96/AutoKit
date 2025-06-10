@@ -1,5 +1,8 @@
 import React from 'react';
-import { List, Button, Tag, Tooltip } from 'antd';
+import List from 'antd/lib/list';
+import Button from 'antd/lib/button';
+import Tag from 'antd/lib/tag';
+import Tooltip from 'antd/lib/tooltip';
 import { DeleteOutlined, EditOutlined, CheckCircleOutlined, StopOutlined } from '@ant-design/icons';
 import { MCPConfig } from '../../services/figmaMCP/types';
 import './FigmaMCPConfigList.css';
@@ -13,19 +16,22 @@ interface FigmaMCPConfigListProps {
 }
 
 const FigmaMCPConfigList: React.FC<FigmaMCPConfigListProps> = ({ 
-  configs, 
+  configs = [], 
   loading, 
   selectedConfigId,
   onSelect,
   onDelete
 }) => {
+  // 确保configs始终是数组
+  const safeConfigs = Array.isArray(configs) ? configs : [];
+  
   return (
     <List
       className="figma-mcp-config-list"
       loading={loading}
       itemLayout="horizontal"
-      dataSource={configs}
-      renderItem={(config) => (
+      dataSource={safeConfigs}
+      renderItem={(config: MCPConfig) => (
         <List.Item
           key={config.id}
           className={`config-list-item ${selectedConfigId === config.id ? 'selected' : ''}`}
@@ -35,7 +41,7 @@ const FigmaMCPConfigList: React.FC<FigmaMCPConfigListProps> = ({
               <Button 
                 icon={<EditOutlined />} 
                 size="small" 
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   onSelect(config);
                 }}
@@ -46,7 +52,7 @@ const FigmaMCPConfigList: React.FC<FigmaMCPConfigListProps> = ({
                 icon={<DeleteOutlined />} 
                 size="small" 
                 danger
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent) => {
                   e.stopPropagation();
                   onDelete(config.id);
                 }}

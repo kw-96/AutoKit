@@ -178,9 +178,11 @@ const FigmaMCPConfigForm: React.FC<FigmaMCPConfigFormProps> = ({ config, loading
             </span>
           }
         >
-          <Input placeholder="设置固定通道ID（推荐设置，例如：autokit）" />
-          <div style={{ marginTop: 4, fontSize: 12, color: '#1890ff' }}>
-            推荐设置固定通道ID，在Figma插件中使用相同的ID可确保稳定连接
+          <div>
+            <Input placeholder="设置固定通道ID（推荐设置，例如：autokit）" />
+            <div style={{ marginTop: 4, fontSize: 12, color: '#1890ff' }}>
+              推荐设置固定通道ID，在Figma插件中使用相同的ID可确保稳定连接
+            </div>
           </div>
         </Form.Item>
 

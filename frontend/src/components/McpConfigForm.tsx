@@ -1,6 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Button, message, Card, InputNumber, Collapse } from 'antd';
-import { McpConfig } from '../pages/McpConfigPage';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import Select from 'antd/lib/select';
+import Button from 'antd/lib/button';
+import message from 'antd/lib/message';
+import Card from 'antd/lib/card';
+import InputNumber from 'antd/lib/input-number';
+import Collapse from 'antd/lib/collapse';
+
+// 定义MCP配置类型
+interface McpConfig {
+  id: string;
+  name: string;
+  type: 'FigmaMCP' | 'CursorMCP';
+  apiKey: string;
+  cursorConfig?: {
+    endpoint?: string;
+    model?: string;
+    temperature?: number;
+    maxTokens?: number;
+    topP?: number;
+    completionDelay?: number;
+    maxGenLength?: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
 
 interface Props {
   onSuccess: () => void;
@@ -114,7 +139,7 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
         }}
       >
         <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
-          <Form.Item name="name" rules={[{ required: true, message: '请输入配置名称' }]} style={{ flex: 1 }}> 
+          <Form.Item name="name" rules={[{ required: true, message: '请输入配置名称' }]} style={{ flex: 1 }}>
             <Input placeholder="配置名称" disabled={loading} />
           </Form.Item>
           <Form.Item name="type" style={{ width: 120 }}>
@@ -123,7 +148,7 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
               <Option value="CursorMCP">CursorMCP</Option>
             </Select>
           </Form.Item>
-          <Form.Item name="apiKey" rules={[{ required: true, message: '请输入API Key' }]} style={{ flex: 2 }}> 
+          <Form.Item name="apiKey" rules={[{ required: true, message: '请输入API Key' }]} style={{ flex: 2 }}>
             <Input placeholder="API Key" disabled={loading} />
           </Form.Item>
         </div>
@@ -145,7 +170,6 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
                     rules={[{ type: 'number', min: 0.01, max: 1, message: '请输入0.01-1之间的数值' }]}
                   >
                     <InputNumber 
-                      placeholder="0.7" 
                       min={0.01} 
                       max={1} 
                       step={0.1} 
@@ -159,7 +183,6 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
                     rules={[{ type: 'number', min: 1, max: 4096, message: '请输入1-4096之间的数值' }]}
                   >
                     <InputNumber 
-                      placeholder="1024" 
                       min={1} 
                       max={4096} 
                       disabled={loading}
@@ -172,7 +195,6 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
                     rules={[{ type: 'number', min: 0, max: 1, message: '请输入0-1之间的数值' }]}
                   >
                     <InputNumber 
-                      placeholder="0.9" 
                       min={0} 
                       max={1} 
                       step={0.1} 
@@ -186,7 +208,6 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
                     rules={[{ type: 'number', min: 0, max: 5, message: '请输入0-5之间的数值' }]}
                   >
                     <InputNumber 
-                      placeholder="0.5" 
                       min={0} 
                       max={5} 
                       step={0.1} 
@@ -200,7 +221,6 @@ const McpConfigForm: React.FC<Props> = ({ onSuccess, initial, onSubmit, submitTe
                     rules={[{ type: 'number', min: 1, max: 1000, message: '请输入1-1000之间的数值' }]}
                   >
                     <InputNumber 
-                      placeholder="100" 
                       min={1} 
                       max={1000} 
                       disabled={loading}
