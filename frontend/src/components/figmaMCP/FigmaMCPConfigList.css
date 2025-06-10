@@ -1,0 +1,35 @@
+.figma-mcp-config-list {
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  overflow: auto;
+  max-height: 600px;
+}
+
+.config-list-item {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.config-list-item:hover {
+  background-color: #f5f5f5;
+}
+
+.config-list-item.selected {
+  background-color: #e6f7ff;
+}
+
+.config-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.config-description {
+  font-size: 12px;
+}
+
+.config-file-id {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #666;
+} 

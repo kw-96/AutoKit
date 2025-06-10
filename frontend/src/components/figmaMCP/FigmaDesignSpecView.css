@@ -1,0 +1,43 @@
+.design-spec-view {
+  width: 100%;
+}
+
+.design-spec-empty-card {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.design-spec-header-card {
+  margin-bottom: 20px;
+}
+
+.design-spec-meta {
+  margin-top: 16px;
+}
+
+.design-spec-tabs {
+  background-color: #fff;
+}
+
+.design-spec-table {
+  margin-top: 10px;
+}
+
+.color-preview {
+  display: flex;
+  align-items: center;
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  margin-right: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.variants-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+} 

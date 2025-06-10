@@ -1,0 +1,35 @@
+.figma-mcp-page {
+  padding: 24px;
+}
+
+.figma-mcp-card {
+  margin-bottom: 24px;
+}
+
+.figma-mcp-content {
+  display: flex;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .figma-mcp-content {
+    flex-direction: column;
+  }
+}
+
+.config-list-container {
+  flex: 1;
+  min-width: 300px;
+}
+
+.config-form-container {
+  flex: 2;
+}
+
+.design-spec-container {
+  width: 100%;
+}
+
+.design-spec-actions {
+  margin-bottom: 16px;
+} 

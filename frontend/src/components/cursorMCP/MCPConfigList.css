@@ -1,0 +1,112 @@
+/* CursorMCP配置列表样式 */
+
+.mcp-config-list {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mcp-config-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mcp-config-list th,
+.mcp-config-list td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.mcp-config-list th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+  color: #333;
+}
+
+.mcp-config-list tr:last-child td {
+  border-bottom: none;
+}
+
+.mcp-config-list tr:hover {
+  background-color: #f9f9f9;
+}
+
+.mcp-config-list tr.disabled {
+  opacity: 0.7;
+}
+
+.mcp-config-list .status {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.mcp-config-list .status.enabled {
+  background-color: #e6f7ff;
+  color: #1890ff;
+  border: 1px solid #91d5ff;
+}
+
+.mcp-config-list .status.disabled {
+  background-color: #fff1f0;
+  color: #ff4d4f;
+  border: 1px solid #ffa39e;
+}
+
+.mcp-config-list .actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.mcp-config-list button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.mcp-config-list .edit-button {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.mcp-config-list .edit-button:hover {
+  background-color: #bae7ff;
+}
+
+.mcp-config-list .delete-button {
+  background-color: #fff1f0;
+  color: #ff4d4f;
+}
+
+.mcp-config-list .delete-button:hover {
+  background-color: #ffccc7;
+}
+
+.mcp-config-list .execute-button {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.mcp-config-list .execute-button:hover {
+  background-color: #d9f7be;
+}
+
+.empty-list {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+} 

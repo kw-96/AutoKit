@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "@types/antd": "^0.12.32"
+  },
+  "scripts": {
+    "start-figma-socket": "bun run backend/src/figmaMCP/socket.ts",
+    "start-all": "node scripts/start-all.js"
   }
 }
