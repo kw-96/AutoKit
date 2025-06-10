@@ -1,0 +1,5 @@
+﻿{
+  "figma_token": "YOUR_FIGMA_TOKEN_HERE",
+  "api_endpoint": "https://api.figma.com",
+  "timeout": 30000
+}

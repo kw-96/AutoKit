@@ -30,3 +30,7 @@ logs/
 # 其他
 .idea/
 .vscode/ 
+# Configuration files with secrets
+backend/config/mcp-config.json
+*.env
+.env.*
