@@ -92,13 +92,6 @@ AutoKit/
 
 ---
 
-## 设计自动化示例
-
-- **批量文本内容替换**：感谢 [@dusskapark](https://github.com/dusskapark) 贡献，[演示视频](https://www.youtube.com/watch?v=j05gGT3xfCs)
-- **组件实例覆盖属性传播**：同样感谢 [@dusskapark](https://github.com/dusskapark)，[演示视频](https://youtu.be/uvuT8LByroI)
-
----
-
 ## 使用方法
 
 1. 启动 WebSocket 服务器
@@ -112,16 +105,20 @@ AutoKit/
 ## 手动安装与配置
 
 ### MCP 服务器
-在 `~/.cursor/mcp.json` 中添加：
+在 `~/mcp.json` 中添加：
 ```json
 {
   "mcpServers": {
     "TalkToFigma": {
       "command": "bunx",
-      "args": ["ai-talk-to-figma-mcp@latest"]
+      "args": [
+        "run",
+        "实际路径\\AutoKit\\AI-talk-to-figma-mcp\\dist\\server.js"
+      ]
     }
   }
 }
+
 ```
 ### WebSocket 服务器
 ```bash
@@ -130,6 +127,7 @@ bun socket
 ### Figma 插件
 - Figma > 插件 > 开发 > 新建插件 > 链接现有插件
 - 选择 `src/AI_mcp_plugin/manifest.json`
+- 或者在云端直接打开插件
 
 ---
 
@@ -142,6 +140,17 @@ bun socket
 - `src/socket.ts` 取消注释 hostname `0.0.0.0`：
   ```typescript
   hostname: "0.0.0.0",
+  ```
+- 启动 WebSocket：
+  ```bash
+  bun socket
+  ```
+
+## macOS 指南
+
+- 安装 bun：
+  ```bash
+  curl -fsSL https://bun.sh/install | bash
   ```
 - 启动 WebSocket：
   ```bash
