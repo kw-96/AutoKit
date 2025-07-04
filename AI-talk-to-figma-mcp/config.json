@@ -1,0 +1,14 @@
+{
+  "defaultOutputPath": "../json",
+  "projectName": "AutoKit",
+  "description": "AutoKit项目的默认配置文件",
+  "settings": {
+    "designSystem": {
+      "outputPath": "../json",
+      "includeComponents": true,
+      "includeStyles": true,
+      "includeTokens": true,
+      "format": "json"
+    }
+  }
+} 
