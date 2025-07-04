@@ -1,0 +1,16 @@
+{
+  "name": "autokit",
+  "version": "1.0.0",
+  "description": "AutoKit 项目启动器",
+  "main": "start-all.js",
+  "scripts": {
+    "start": "node start-all.js",
+    "start-all": "node start-all.js",
+    "start-figma": "node start-all.js",
+    "check-env": "node check-env.js",
+    "env": "node check-env.js"
+  },
+  "keywords": ["figma", "cursor", "mcp", "autokit"],
+  "author": "",
+  "license": "MIT"
+} 
